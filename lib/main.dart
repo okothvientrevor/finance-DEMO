@@ -1,7 +1,16 @@
 import 'package:finance_demo/pages/home.dart';
+import 'package:finance_demo/person_details.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+late Box box;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Box box = await Hive.openBox('box');
+  Hive.registerAdapter(PersonDetailsAdapter());
+
   runApp(const MyApp());
 }
 
